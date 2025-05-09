@@ -28,7 +28,12 @@ import {
   VotingPowerStrategy,
   VotingPowerStrategyType,
 } from "ton-vote-contracts-sdk";
-import { THEME, useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
+import {
+  Locales,
+  THEME,
+  useTonAddress,
+  useTonConnectUI,
+} from "@tonconnect/ui-react";
 import { useSettingsStore } from "store";
 import _ from "lodash";
 import {
@@ -116,17 +121,17 @@ type CopyFn = (text: string) => Promise<boolean>; // Return success
 export function useCopyToClipboard(): [CopiedValue, CopyFn] {
   const copy: CopyFn = async (text) => {
     if (!navigator?.clipboard) {
-      console.warn("Clipboard not supported");
+      console.warn("Копирование не поддерживается");
       return false;
     }
 
     // Try to save to clipboard then save it in the state if worked
     try {
       await navigator.clipboard.writeText(text);
-      showSuccessToast("Copied to clipboard");
+      showSuccessToast("Скопировано");
       return true;
     } catch (error) {
-      console.warn("Copy failed", error);
+      console.warn("Ошибка копирования", error);
 
       return false;
     }
@@ -239,6 +244,7 @@ export const useAppSettings = () => {
   const setThemeMode = (mode: ThemeType) => {
     store.setThemeMode(mode);
     setOptions({
+      language: "ru",
       uiPreferences: {
         theme: mode === "dark" ? THEME.DARK : THEME.LIGHT,
       },
@@ -269,7 +275,7 @@ export const useProposalResults = (proposalAddress: string) => {
     );
 
     return _.map(choices, (choice, index) => {
-      const result = getproposalResult(proposal, choice.substring(0, 127));      
+      const result = getproposalResult(proposal, choice.substring(0, 127));
       const percent = result || 0;
 
       const amount = getProposalResultTonAmount(
@@ -374,15 +380,15 @@ export const useProposalStrategyName = (proposalAddress: string) => {
     switch (type) {
       case VotingPowerStrategyType.TonBalance:
       case VotingPowerStrategyType.TonBalanceWithValidators:
-        return "TON Balance";
+        return "Баланс TON";
       case VotingPowerStrategyType.JettonBalance:
-        return "Jetton Balance";
+        return "Баланс жетонов";
       case VotingPowerStrategyType.NftCcollection:
-        return "NFT Collection";
+        return "NFT коллекция";
       case VotingPowerStrategyType.JettonBalance_1Wallet1Vote:
       case VotingPowerStrategyType.NftCcollection_1Wallet1Vote:
       case VotingPowerStrategyType.TonBalance_1Wallet1Vote:
-        return "1 wallet 1 vote";
+        return "1 кошелек 1 голос";
 
       default:
         break;

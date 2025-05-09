@@ -4,7 +4,7 @@ import { useAppParams } from "hooks/hooks";
 import { useDaoPageTranslations } from "i18n/hooks/useDaoPageTranslations";
 import { useDaoQuery } from "query/getters";
 import { Suspense } from "react";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { Outlet } from "react-router-dom";
 import { parseLanguage } from "utils";
 import { Page } from "wrappers";

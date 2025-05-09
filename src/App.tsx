@@ -2,7 +2,7 @@ import { GlobalStyles, ThemeProvider } from "@mui/material";
 import { APP_NAME } from "config";
 import { useAppSettings } from "hooks/hooks";
 import { Suspense, useEffect, useMemo } from "react";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import { RouterProvider } from "react-router-dom";
 import { getGlobalStyles } from "styles";
 import { useRouter } from "router/router";
@@ -35,7 +35,7 @@ function App() {
   );
 
   return (
-    <>
+    <HelmetProvider>
       <Helmet>
         <title>{APP_NAME}</title>
       </Helmet>
@@ -45,7 +45,7 @@ function App() {
           <RouterProvider router={router} />
         </Suspense>
       </ThemeProvider>
-    </>
+    </HelmetProvider>
   );
 }
 

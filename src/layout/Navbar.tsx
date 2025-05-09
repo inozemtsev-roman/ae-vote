@@ -25,12 +25,12 @@ import { FiMoon, FiSun } from "react-icons/fi";
 
 export function Navbar() {
   const mobile = useMediaQuery("(max-width:600px)");
-  const { daosPage } = useAppNavigation();
+  const { createSpace } = useAppNavigation();
   const devFeatures = useDevFeatures();
   return (
     <StyledContainer>
       <StyledNav>
-        <StyledLogo onClick={daosPage.root}>
+        <StyledLogo>
           <img src={LogoImg} />
           <Typography style={{ marginTop: 5 }}>{APP_NAME}</Typography>
         </StyledLogo>
@@ -38,7 +38,6 @@ export function Navbar() {
           <EnvModeIndication />
           <ConnectButton />
           <ThemeToggle />
-          {!mobile && <Github />}
         </StyledFlexRow>
       </StyledNav>
     </StyledContainer>
@@ -64,7 +63,7 @@ const EnvModeIndication = () => {
 const ThemeToggle = () => {
   const { toggleTheme, isDarkMode } = useAppSettings();
   return (
-    <AppTooltip text={isDarkMode ? "Light mode" : "Dark more"}>
+    <AppTooltip text={isDarkMode ? "Светлый режим" : "Темный режим"}>
       <StyledThemeToggle onClick={toggleTheme}>
         {isDarkMode ? <FiSun /> : <FiMoon />}
       </StyledThemeToggle>
@@ -155,7 +154,7 @@ const StyledLogo = styled("button")(({ theme }) => ({
     fontWeight: 800,
     position: "relative",
     color: theme.palette.text.secondary,
-    fontSize: 20,
+    fontSize: 25,
     top: -3,
   },
   img: {
@@ -163,10 +162,10 @@ const StyledLogo = styled("button")(({ theme }) => ({
   },
   [`@media (max-width: ${MOBILE_WIDTH}px)`]: {
     p: {
-      fontSize: 14,
+      fontSize: 22,
     },
     img: {
-      height: 25,
+      height: 35,
     },
   },
 }));
