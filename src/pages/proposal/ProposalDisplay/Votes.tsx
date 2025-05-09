@@ -17,7 +17,7 @@ import { fromNano } from "ton";
 import { useMemo, useState } from "react";
 import moment from "moment";
 import _ from "lodash";
-import { CSVLink } from "react-csv";
+import { CSVDownload, CSVLink } from "react-csv";
 
 import { GrDocumentCsv } from "react-icons/gr";
 import { useProposalPageTranslations } from "i18n/hooks/useProposalPageTranslations";
@@ -180,12 +180,25 @@ const DownloadCSV = () => {
   const csvData = useCsvData();
   const translations = useProposalPageTranslations();
 
+  const handleDownload = () => {
+    const csvContent = csvData.map(row => row.join(',')).join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `${parseLanguage(data?.metadata?.title)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
-    <CSVLink data={csvData} filename={parseLanguage(data?.metadata?.title)}>
-      <AppTooltip text={translations.downloadCsv} placement="top">
-        <StyledIcon style={{ width: 18, height: 18 }} />
-      </AppTooltip>
-    </CSVLink>
+    <AppTooltip text={translations.downloadCsv} placement="top">
+      <StyledIcon 
+        style={{ width: 18, height: 18, cursor: 'pointer' }} 
+        onClick={handleDownload}
+      />
+    </AppTooltip>
   );
 };
 

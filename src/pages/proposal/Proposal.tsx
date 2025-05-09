@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { APP_NAME } from "config";
 import { parseLanguage } from "utils";
 import { Outlet } from "react-router-dom";
