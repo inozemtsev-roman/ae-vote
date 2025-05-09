@@ -23,8 +23,29 @@ import { VotingPowerStrategyType } from "ton-vote-contracts-sdk";
 import CheckImg from "assets/check.svg";
 import CheckImgGray from "assets/check-gray.svg";
 
-const fromUnixToString = (time: number, format = "MMM DD, YYYY HH:mm") => {
-  return `${moment.unix(time).utc().format(format)} UTC`;
+const MONTHS_RU: { [key: number]: string } = {
+  1: 'января',
+  2: 'февраля',
+  3: 'марта',
+  4: 'апреля',
+  5: 'мая',
+  6: 'июня',
+  7: 'июля',
+  8: 'августа',
+  9: 'сентября',
+  10: 'октября',
+  11: 'ноября',
+  12: 'декабря'
+};
+
+const fromUnixToString = (time: number) => {
+  const date = moment.unix(time).utc().local();
+  const day = date.format('D');
+  const month = MONTHS_RU[parseInt(date.format('M'))];
+  const year = date.format('YYYY');
+  const time_str = date.format('HH:mm');
+  
+  return `${day} ${month} ${year} ${time_str}`;
 };
 
 export const Metadata = () => {
@@ -162,7 +183,7 @@ const NFT = () => {
     <Asset
       metadata={data?.metadata?.nftMetadata?.metadata}
       address={strategyArgs.nft}
-      label="NFT Collection"
+      label="NFT коллекция"
     />
   );
 };
@@ -177,7 +198,7 @@ const Jetton = () => {
     <Asset
       metadata={data?.metadata?.jettonMetadata?.metadata}
       address={strategyArgs.jetton}
-      label="Jetton"
+      label="Жетон"
     />
   );
 };
@@ -252,12 +273,12 @@ function ExtraInfo() {
           className="check"
         />
         <Typography>
-          Validators can participate in this vote.{" "}
+          Валидаторы также могут участвовать в этом голосовании.{" "}
           <Link
-            href="https://github.com/orbs-network/ton-vote#supported-strategies"
+            href="https://github.com/aerlybirds/ae-vote#supported-strategies"
             target="_blank"
           >
-            Read more
+            Подробнее
           </Link>
         </Typography>
       </StyledExtraInfo>

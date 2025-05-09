@@ -1,19 +1,16 @@
 import { styled, Typography } from '@mui/material'
 import React from 'react'
 import { StyledFlexColumn, StyledFlexRow } from 'styles'
-import OrbsLogo from 'assets/orbs.svg'
-import HearLogo from "assets/heart.svg";
+import AerlybirdsLogo from 'assets/aerlybirds.svg'
 import { AppSocials, Github } from 'components';
 
 export function Footer() {
   return (
     <StyledContainer>
-      <StyledWithLove>
-        <Typography>Contributed with</Typography>
-        <img src={HearLogo} />
-        <Typography>by</Typography>
-        <a href="https://www.orbs.com/" target="_blank">
-          <Typography>Orbs</Typography> <img src={OrbsLogo} />
+      <StyledWithLove> <img src={AerlybirdsLogo} />
+        <Typography>ДАО</Typography>
+        <a href="https://aerlybirds.su" target="_blank">
+          <Typography>Ærly Birds</Typography> 
         </a>
       </StyledWithLove>
       <StyledFlexRow gap={0}>
@@ -46,7 +43,7 @@ const StyledContainer = styled(StyledFlexColumn)(({ theme }) => ({
     fontSize: '14px!important',
   },
   img: {
-    width: 12,
+    width: 18,
   },
 }));
 
